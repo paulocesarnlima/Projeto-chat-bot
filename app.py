@@ -2,11 +2,11 @@
 from flask import Flask, render_template, request
 import openai
 
-app = flask(__name___)
+app = Flask(__name__)
 
 openai.api_key = "*"
 
-@app.rout("/")
+@app.route("/")
 
 def index():
     return render_template(index.html)
@@ -23,7 +23,7 @@ def api():
     ]
     )
     
-    if completion.choices(0).mensage!=Nome:
+    if completion.choices(0).mensage!=None:
         return completion.choices(0).message
     else:
         return 'Falha para geração da resposta!'
