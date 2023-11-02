@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapot</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11/7.0/stules/ally-dark.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-dark.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{( url for('static', filename='style.css')) }">
-    <script> src="https://ajax.googleapis.com/ajas/libs/jquery/3.5.1/jquery.min.js"</script>
-    <script> src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js" </script>
-    <script> src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" </script>
-    <script> src="https://cdn.jsdelicre.net/npm/highlight.js@10.7.2/lib/languages.python.mim.js" </script>
-    <script> src="https://cdnjs.cloudflare.com/ajax/libs/higlight.js/11.7.0/highlight.mim.js" </script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"> </script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/lib/languages/python.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"> </script>
     
 
 </head>
@@ -23,14 +23,14 @@
         <!-- Mensagem do usuário será adicionada aqui -->
     </div>
     <div class="form-group mt-3">
-        <textarea class"form-control" rows="3" placeholder="Escreva sua mensagem ou dúvida!" id="send-bth"> </textarea>
+        <textarea class="form-control" rows="3" placeholder="Escreva sua mensagem ou dúvida!" id="message-input"> </textarea>
     
     <button type "button" class="btn btn-primary" id="send-btn"> Enviar </button>
     </div>
     
     <script>
 
-        setInterval(highlightAll, 1000)
+        setInterval(highlightAll, 1000);
 
         function highlightAll() {
             document.querySelectorAll("pre code").forEach(block => {
@@ -44,7 +44,7 @@
             <img src="{{ url_for('static', filename 'images/user.png') }}" class= "user-icon"><p>${message}</p>';
        
         chatBox.appendChild(messageDiv);
-        chatBox.scholTop = chatBox.schollHeinght;
+        chatBox.schollTop = chatBox.schollHeight;
 
         const chaBox = document.querySelector(".chat-box");
         const messageInput = document.querySelector("#message-input");
@@ -53,7 +53,7 @@
         }
 
         function sendMessage(){
-            add<essage(message, true);
+            addMessage(message, true);
 
             fetch("/api", {
                 method: "POST",
@@ -65,9 +65,9 @@
 
             .then(response => response.json())
             .then(data => {
-                        messagemInput.value = "".
+                        messageInput.value = "";
                 const messageDiv = document.createElement("div");
-                messageDiv.classList.add("mt-3", "p-3", "rouded");
+                messageDiv.classList.add("mt-3", "p-3", "rounded");
                 messageDiv.classList.add("bot-message");
 
                 const content = data.content;
@@ -92,12 +92,13 @@
             })
         }
 
-        function AddMenssage(messege, IsUserMessage) {
+        function AddMenssage(messege, isUserMessage) {
             const messageDiv = document.createElement("div");
-            message.classlist.add("mt-3", "p-3", "rounded");
+            messageDiv.classlist.add("mt-3", "p-3", "rounded");
         
-        if (IsUserMessage) {
-            message.classlist.add("user-message");
+        if (isUserMessage) {
+            messageDiv.classlist.add("user-message");
+
         }   else {
             messageDiv.classList.add("bot-message");
         }
@@ -110,7 +111,7 @@
         sendBth.addEventListener("click", sendMenssage);
     
         message.addEventListener("keydown", event => {
-            if (event.keyCode === 12 && !event.shiftKey) {
+            if (event.keyCode === 13 && !event.shiftKey) {
                 event.preventDeflaut()
                 sendMenssage();
     
