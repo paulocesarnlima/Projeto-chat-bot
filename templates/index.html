@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chapot</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/a11y-dark.min.css">
@@ -30,19 +30,17 @@
     
     <script>
 
-        setInterval(highlightAll, 1000);
+    setInterval(highlightAll, 1000);
 
-        function highlightAll() {
-            document.querySelectorAll("pre code").forEach(block => {
-                hljs.highlightBlock(block);
-            });
+    function highlightAll() { 
+        document.querySelectorAll("pre code").forEach(block => {
+        hljs.highlightBlock(block); });
       
 
-        // Image dos icones da intereface
+    // Image dos icones da intereface
 
-        messageDiv.innerHTML =
-            <img src="{{ url_for('static', filename 'images/user.png') }}" class= "user-icon"><p>${message}</p>';
-       
+        messageDiv.innerHTML = `<img src="{{ url_for('static', filename='images/user.png')}}" class="user-icon"><p>${message}</p>`;
+        
         chatBox.appendChild(messageDiv);
         chatBox.schollTop = chatBox.schollHeight;
 
@@ -50,9 +48,9 @@
         const messageInput = document.querySelector("#message-input");
         const sendBtn = document.querySelector("#send-btn");
 
-        }
+    }
 
-        function sendMessage(){
+    function sendMessage() { 
             addMessage(message, true);
 
             fetch("/api", {
@@ -64,59 +62,59 @@
             })
 
             .then(response => response.json())
-            .then(data => {
-                        messageInput.value = "";
-                const messageDiv = document.createElement("div");
-                messageDiv.classList.add("mt-3", "p-3", "rounded");
-                messageDiv.classList.add("bot-message");
+            .then(data => { messageInput.value = "";
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("mt-3", "p-3", "rounded");
+            messageDiv.classList.add("bot-message");
 
-                const content = data.content;
+            const content = data.content;
 
-                const hasCodeBloack = content.includes("'''");
+            const hasCodeBloack = content.includes("'''");
 
-                if (hasCodeBlock) {
-                    const codeContent = content.replace(/'''([\s\S]+?)'''' /g, '</p><pre><code>$1</code></pre><p>');
+            if (hasCodeBlock) { const codeContent = content.replace(/'''([\s\S]+?)'''' /g, '</p><pre><code>$1</code></pre><p>');
 
-                    messageDiv.innerHTML =
-                    <img src="{{ url_for('static', filename 'images/gpt.png') }}" class= "bot-icon"><p>${codeContent}</p>';
+                messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png') }}" class="bot-icon"><p>${codeContent}</p>`;
+
         
-                }  else {
+            }  else {
 
-                    messageDiv.innerHTML =
-                    <img src="{{ url_for('static', filename 'images/gpt.png') }}" class= "bot-icon"><p>${Content}</p>';
+                messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png' ) }}" class="bot-icon"><p>${Content}</p>`;
+
+
                 }
-                chatBox.appenChild(messageDiv);
-                chatBox.schollTop = chatBox.schollHeinght;
+
+            chatBox.appenChild(messageDiv);
+            chatBox.schollTop = chatBox.schollHeinght;
 
 
             })
-        }
+    }
 
-        function AddMenssage(messege, isUserMessage) {
+    function AddMenssage(messege, isUserMessage) {
             const messageDiv = document.createElement("div");
             messageDiv.classlist.add("mt-3", "p-3", "rounded");
         
         if (isUserMessage) {
-            messageDiv.classlist.add("user-message");
+                messageDiv.classlist.add("user-message");
 
         }   else {
-            messageDiv.classList.add("bot-message");
+                messageDiv.classList.add("bot-message");
         }
 
 
-        }
+    }
 
 
-        .chatch(error => console.error(error));
-        sendBth.addEventListener("click", sendMenssage);
+    .catch(error => console.error(error));
+        sendBth.addEventListener("click", sendMessage);
     
         message.addEventListener("keydown", event => {
-            if (event.keyCode === 13 && !event.shiftKey) {
-                event.preventDeflaut()
-                sendMenssage();
-    
+        if (event.keyCode === 13 && !event.shiftKey) {
+                event.preventDefault()
+                sendMessage();    
             }
         })
+
     </script>
 
 </body>
