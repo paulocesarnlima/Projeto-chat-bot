@@ -20,11 +20,11 @@ def index():
 def api():
     message = request.json.get("message")
     completion = openai.ChatCompletion.create(
-        model = "gpt-3.5-turbo",
-        messages=[
-            {"role": "system", "content": "Você é um assistente de programação."},
+    model = "gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "Você é um assistente de programação."},
         {"role": "user", "content": message},
-        ]
+    ]
     )
     
     if completion.choices(0).mensage is not None:
