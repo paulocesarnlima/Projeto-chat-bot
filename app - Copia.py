@@ -2,9 +2,6 @@ from flask import Flask, render_template, request
 import openai
 import os
 
-import json
-from flask import jsonify
-
 
 ChaveOpenai = os.getenv("OpenaiKey")
 
@@ -31,15 +28,9 @@ def api():
     )
     
     if completion.choices[0].message is not None:
-        response_data = {
-            "content": completion.choices[0].message['content']
-        }
-        return jsonify(response_data)
+        return completion.choices[0].message['content']
     else:
-        response_data = {
-            "error": "Falha para geração da resposta!"
-        }
-        return jsonify(response_data)
+        return 'Falha para geração da resposta!'
 
     
 if __name__=='__main__':
