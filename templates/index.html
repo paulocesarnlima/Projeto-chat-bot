@@ -25,7 +25,7 @@
     <div class="form-group mt-3">
         <textarea class="form-control" rows="3" placeholder="Escreva sua mensagem ou dúvida!" id="message-input"> </textarea>  
     </div>  
-    <button type "button" class="btn btn-primary" id="send-btn"> Enviar </button>
+    <button type="button" class="btn btn-primary" id="send-btn"> Enviar </button>
     </div>
 
 
@@ -39,18 +39,18 @@ function highlightAll() {
     });
 }    
 
-    const chaBox = document.querySelector(".chat-box");
+    const chatBox = document.querySelector(".chat-box");
     const messageInput = document.querySelector("#message-input");
     const sendBtn = document.querySelector("#send-btn");
 
 
 
-function addMenssage(messege, isUserMessage) {
+function addMessage(message, isUserMessage) {
     const messageDiv = document.createElement("div");
-    messageDiv.classlist.add("mt-3", "p-3", "rounded");
+    messageDiv.classList.add("mt-3", "p-3", "rounded");
     
     if (isUserMessage) {
-         messageDiv.classlist.add("user-message");
+        messageDiv.classList.add("user-message");
 
     }   else {
         messageDiv.classList.add("bot-message");        
@@ -60,11 +60,11 @@ function addMenssage(messege, isUserMessage) {
 
     messageDiv.innerHTML = `
         <img src="{{ url_for('static', filename='images/user.png')
-    }}" class="user-icon"><p>${message}</p>`
-    ;
+    }}" class="user-icon"><p>${message}</p>
+    `;
 
     chatBox.appendChild(messageDiv);
-    chatBox.schollTop = chatBox.schollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
 }
 
@@ -79,55 +79,50 @@ function sendMessage() {
             headers: {
                 "Content-type": "application/json"
             },
-            body: JSON.stringify({message})
+            body: JSON.stringify({ message })
         })
 
-        .then(response => response.json());
+        .then(response => response.json())
         .then(data => { 
-                    messageInput.value = "";
+                messageInput.value = "";
             const messageDiv = document.createElement("div");
             messageDiv.classList.add("mt-3", "p-3", "rounded");
             messageDiv.classList.add("bot-message");
 
             const content = data.content;
 
-            const hasCodeBloack = content.includes("'''");
+            const hasCodeBlock = content.includes("'''");
 
             if (hasCodeBlock) { 
                 const codeContent = content.replace(/'''([\s\S]+?)''''/g, '</p><pre><code>$1</code></pre><p>');
 
-            messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png')}}" class="bot-icon"><p>${codeContent}</p>`;
+                messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png')}}" class="bot-icon"><p>${codeContent}</p>`;
 
         
-             }  else {
+            }  else {
 
-            messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png')}}" class="bot-icon"><p>${content}</p>`;
+                messageDiv.innerHTML = `<img src="{{ url_for('static', filename= 'images/gpt.png')}}" class="bot-icon"><p>${content}</p>`;
 
 
             }
 
-            chatBox.appenChild(messageDiv);
-            chatBox.schollTop = chatBox.schollHeinght;
-        })
-        
+            chatBox.appendChild(messageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        })        
         .catch(error => console.error(error));
+    }
 }
-}
 
-    sendBth.addEventListener("click", sendMessage);
-    
-     
-    message.addEventListener("keydown", event =>{
-        if (event.keyCode === 13 && !event.shiftKey) {
-            event.preventDefault();
-            sendMessage();    
-        }
-    });
+sendBtn.addEventListener("click", sendMessage);
+         
+message.addEventListener("keydown", event =>{
+    if (event.keyCode === 13 && !event.shiftKey) {
+        event.preventDefault();
+        sendMessage();    
+    }
+});
 
-
-
-</script>
-
+    </script>
 
 </body>
 

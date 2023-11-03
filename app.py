@@ -3,12 +3,11 @@ import openai
 import os
 
 
-# ChaveOpenai = os.getenv("OpenaiKey")
+ChaveOpenai = os.getenv("OpenaiKey")
 
 app = Flask(__name__)
 
-# openai.api_key = ChaveOpenai
-openai.api_key = '*'
+openai.api_key = ChaveOpenai
 
 @app.route("/")
 
@@ -21,18 +20,20 @@ def api():
     message = request.json.get("message")
     completion = openai.ChatCompletion.create(
     model = "gpt-3.5-turbo",
+    
     messages=[
         {"role": "system", "content": "Você é um assistente de programação."},
         {"role": "user", "content": message},
     ]
     )
     
-    if completion.choices(0).mensage is not None:
-        return completion.choices(0).message
+    if completion.choices[0].message is not None:
+        return completion.choices[0].message['content']
     else:
         return 'Falha para geração da resposta!'
+
     
-if __name__== '__main__':
+if __name__=='__main__':
     app.run()
 
     
